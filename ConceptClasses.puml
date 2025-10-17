@@ -88,6 +88,6 @@ Submission "0..*" --> "1" ContestTask : відповідає
 Submission "1" --> "0..1" JuryReview : оцінюється
 
 User "1" --> "0..*" Recipe : обирає
-JuryMember "1..*" --> "0..*" JuryReview : створює
+JuryMember "1" --> "0..*" JuryReview : створює
 User "1" --> "0..*" JuryReview : отримує результати
 @enduml
