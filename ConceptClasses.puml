@@ -85,7 +85,7 @@ User "1" --> "0..*" NutritionRecommendation : отримує
 User "1" --> "0..*" Application : заповнює
 Application "1" *-- "0..*" Submission : має
 Submission "0..*" --> "1" ContestTask : відповідає
-Submission "1" --> "0..1" JuryReview : оцінюється
+Submission "1" --> "0..1" JuryReview : отримує
 
 User "1" --> "0..*" Recipe : обирає
 JuryMember "1" --> "0..*" JuryReview : створює
