@@ -1,1 +1,92 @@
+@startuml
+skinparam classAttributeIconSize 0
 
+class "Співак-споживач" as User {
+  - ім’я
+  - контакт
+  - уподобання
+  - алергії
+  - бажанаКалорійність
+  - цілі
+}
+
+class "План_харчування" as MealPlan {
+  - типПеріоду
+  - кількістьПрийомів
+  - загальнаВартість
+  - відповідністьБюджету
+}
+
+class "Рецепт" as Recipe {
+  - назва
+  - інструкції
+  - приблизнаКалорійність
+  - орієнтовнаВартість
+}
+
+class "Інгредієнт" as Ingredient {
+  - назва
+  - кількість
+  - одиницяВиміру 
+  - міститьАлерген
+}
+
+class "Бюджет" as Budget {
+  - сума
+  - типПеріоду
+}
+
+class "Рекомендація_харчування" as NutritionRecommendation {
+  - текст
+  - оцінкаЕкономії
+}
+
+class "Онлайн-заявка" as Application {
+  - особистіДані
+  - контакт
+  - категорія
+  - згода
+}
+
+class "Завдання_конкурсу" as ContestTask {
+  - опис
+  - вимоги
+  - форматФайлу
+  - максимальнаТривалість
+}
+
+class "Подання" as Submission {
+  - назваФайлу
+  - типФайлу
+  - датаЗавантаження
+  - примітки
+}
+
+class "Член_журі" as JuryMember {
+  - ім'я
+  - спеціалізація
+}
+
+class "Рецензія_журі" as JuryReview {
+  - оцінка
+  - коментарі
+  - підсумокРекомендацій
+}
+
+User "1" --> "0..*" MealPlan : формує
+MealPlan "1" o-- "0..*" Recipe : містить
+Recipe "1" o-- "1..*" Ingredient : містить
+MealPlan "1" --> "1" Budget : використовує
+User "1" --> "0..*" Budget : визначає
+MealPlan "1" --> "0..*" NutritionRecommendation : генерує
+User "1" --> "0..*" NutritionRecommendation : отримує
+
+User "1" --> "0..*" Application : заповнює
+Application "1" *-- "0..*" Submission : має
+Submission "0..*" --> "1" ContestTask : відповідає
+Submission "1" --> "0..1" JuryReview : оцінюється
+
+User "1" --> "0..*" Recipe : обирає
+JuryMember "1..*" --> "0..*" JuryReview : створює
+User "1" --> "0..*" JuryReview : отримує результати
+@enduml
