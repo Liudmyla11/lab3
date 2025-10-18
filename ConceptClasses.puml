@@ -75,7 +75,7 @@ class "Рецензія_журі" as JuryReview {
 }
 
 User "1" --> "0..*" MealPlan : формує
-MealPlan "1" o-- "1..*" Recipe : містить
+MealPlan "1..*" o-- "1..*" Recipe : містить
 Recipe "1" o-- "1..*" Ingredient : містить
 MealPlan "1" --> "1" Budget : використовує
 User "1" --> "0..*" Budget : визначає
