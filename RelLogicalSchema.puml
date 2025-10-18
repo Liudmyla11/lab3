@@ -14,7 +14,8 @@ entity "User-singer" as user {
     (PK) user_id
     --
     name
-    contact
+    email
+    phone
     preferences
     allergies
     desired_calories
