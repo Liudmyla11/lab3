@@ -75,14 +75,14 @@ class "Рецензія_журі" as JuryReview {
 }
 
 User "1" --> "0..*" MealPlan : формує
-MealPlan "1" o-- "0..*" Recipe : містить
+MealPlan "1" o-- "1..*" Recipe : містить
 Recipe "1" o-- "1..*" Ingredient : містить
 MealPlan "1" --> "1" Budget : використовує
 User "1" --> "0..*" Budget : визначає
 MealPlan "1" --> "0..*" NutritionRecommendation : генерує
 
 User "1" --> "0..*" Application : заповнює
-Application "1" *-- "0..*" Submission : має
+Application "1" *-- "1..*" Submission : має
 Submission "0..*" --> "1" ContestTask : відповідає
 Submission "1" --> "0..1" JuryReview : отримує
 
