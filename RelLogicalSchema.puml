@@ -1,0 +1,155 @@
+@startuml
+
+skinparam dpi 85
+hide circle
+skinparam backgroundColor white
+skinparam class {
+    BackgroundColor #fefefe
+    BorderColor #444444
+    ArrowColor #2a9d8f
+    FontColor #264653
+}
+
+entity "User-singer" as user {
+    (PK) user_id
+    --
+    name
+    contact
+    preferences
+    allergies
+    desired_calories
+    goals
+    --
+}
+
+entity "MealPlan" as mealplan {
+    (PK) mealplan_id
+    --
+    type_period
+    meals_count
+    total_cost
+    budget_fit
+    --
+    (FK) user_id
+    (FK) budget_id
+}
+
+entity "Recipe" as recipe {
+    (PK) recipe_id
+    --
+    name
+    instructions
+    approx_calories
+    approx_cost
+    --
+}
+
+entity "Ingredient" as ingredient {
+    (PK) ingredient_id
+    --
+    name
+    has_allergen
+    --
+}
+
+entity "Budget" as budget {
+    (PK) budget_id
+    --
+    amount
+    type_period
+    --
+    (FK) user_id
+}
+
+entity "NutritionRecommendation" as nutrition {
+    (PK) recommendation_id
+    --
+    text
+    saving_score
+    --
+    (FK) mealplan_id
+}
+
+entity "Application" as application {
+    (PK) application_id
+    --
+    personal_data
+    contact
+    category
+    consent
+    --
+    (FK) user_id
+}
+
+entity "ContestTask" as contesttask {
+    (PK) task_id
+    --
+    description
+    requirements
+    file_format
+    max_duration
+}
+
+entity "Submission" as submission {
+    (PK) submission_id
+    --
+    file_name
+    file_type
+    upload_date
+    notes
+    --
+    (FK) application_id
+    (FK) task_id
+}
+
+entity "JuryMember" as jurymember {
+    (PK) jury_id
+    --
+    name
+    specialization
+}
+
+entity "JuryReview" as juryreview {
+    (PK) review_id
+    --
+    score
+    comments
+    summary
+    --
+    (FK) jury_id
+    (FK) submission_id
+}
+
+entity "MealPlan_Recipe" as mealplan_recipe {
+    (PK, FK) mealplan_id
+    (PK, FK) recipe_id
+    --
+}
+
+entity "Recipe_Ingredient" as recipe_ingredient {
+    (PK, FK) recipe_id
+    (PK, FK) ingredient_id
+    --
+    amount
+    unit
+}
+
+user ||--o{ mealplan : формує
+mealplan ||--|| budget : використовує
+user ||--o{ budget : визначає
+mealplan ||--o{ nutrition : генерує
+
+recipe ||--|{ recipe_ingredient : складається з
+ingredient ||--o{ recipe_ingredient : входить до
+
+user ||--o{ application : заповнює
+application ||--|{ submission : має
+submission }o--|| contesttask : відповідає
+
+submission ||--o| juryreview : отримує
+jurymember ||--o{ juryreview : створює
+
+mealplan ||--|{ mealplan_recipe : містить рецепти
+recipe   ||-up-o{ mealplan_recipe : належить плану харчування
+
+@enduml
