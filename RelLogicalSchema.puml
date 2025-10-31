@@ -135,22 +135,22 @@ entity "Recipe_Ingredient" as recipe_ingredient {
     unit
 }
 
-user ||--o{ mealplan : формує
-mealplan ||--|| budget : використовує
-user ||--o{ budget : визначає
-mealplan ||--o{ nutrition : генерує
+user ||--o{ mealplan : creates
+mealplan ||--|| budget : uses
+user ||--o{ budget : defines
+mealplan ||--o{ nutrition : generates
 
-recipe ||--|{ recipe_ingredient : складається з
-ingredient ||--o{ recipe_ingredient : входить до
+recipe ||--|{ recipe_ingredient : consists of
+ingredient ||--o{ recipe_ingredient : is part of
 
-user ||--o{ application : заповнює
-application ||--|{ submission : має
-submission }o--|| contesttask : відповідає
+user ||--o{ application : fills in
+application ||--|{ submission : has
+submission }o--|| contesttask : corresponds to
 
-submission ||--o| juryreview : отримує
-jurymember ||--o{ juryreview : створює
+submission ||--o| juryreview : receives
+jurymember ||--o{ juryreview : creates
 
-mealplan ||--|{ mealplan_recipe : містить рецепти
-recipe   ||-up-o{ mealplan_recipe : належить плану харчування
+mealplan ||--|{ mealplan_recipe : contains recipes
+recipe   ||-up-o{ mealplan_recipe : belongs to meal plan
 
 @enduml
